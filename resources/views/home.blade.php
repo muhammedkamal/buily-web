@@ -13,8 +13,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
+                    @if (!Auth::guest())
                     {{ __('You are logged in!') }}
+                    @endif
+
                 </div>
             </div>
         </div>
