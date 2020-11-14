@@ -7,6 +7,7 @@ use App\Models\products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 class ProductsController extends Controller
 {
 
@@ -89,9 +90,15 @@ class ProductsController extends Controller
      * @param  \App\Models\products  $products
      * @return \Illuminate\Http\Response
      */
-    public function edit(products $products)
+    public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        if ($product->id==auth()->user()->id){
+            return view('Products.edit')->with('product',$product);
+        }
+        else{
+            return view('Products.index');
+        }
     }
 
     /**
@@ -101,9 +108,38 @@ class ProductsController extends Controller
      * @param  \App\Models\products  $products
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, products $products)
+    public function update(Request $request, $id)
     {
-        //
+        // handle file upload 
+        if($request->hasFile('cover')){
+            //get file name with extenstion
+            $fileWithExt = $request->file('cover')->getClientOriginalName();
+            // get just the file name
+            $fileName = pathinfo($fileWithExt,PATHINFO_FILENAME);
+            // get just the extention
+            $ext = $request->file('cover')->getClientOriginalExtension();
+            //file name to store
+            $fileNameToStore = $fileName .'_' . time() . '.' . $ext;
+            //upload image
+            $path = $request->file('cover')->storeAs('public/coverimages', $fileNameToStore);
+
+        }else{
+            $fileNameToStore = 'noimage.jpeg';
+        }
+        $product = Product::find($id);
+        $product->name = $request->input('name');
+        $product->description = $request->input('description');
+        $product->user_id = auth()->user()->id ;
+        $product->quantity= $request->input('quantity');
+        $product->price= $request->input('price');
+        if($request->hasFile('cover')){
+            if($product->cover != "noimage.jpeg"){
+                Storage::delete('/public/coverimages/'.$product->cover);
+            }
+            $product->cover = $fileNameToStore;
+        }
+        $product->save();
+        return redirect('Products')->with('sucess','product Updated.');
     }
 
     /**
@@ -112,8 +148,16 @@ class ProductsController extends Controller
      * @param  \App\Models\products  $products
      * @return \Illuminate\Http\Response
      */
-    public function destroy(products $products)
+    public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        if(auth()->user()->id != $product->user_id){
+            return redirect('products')->with('error','Unauthoraized Page.');
+        }
+        if($product->cover != "noimage.jpeg"){
+            Storage::delete('/public/coverimages/'.$product->cover);
+        }
+        $product->delete();
+        return redirect('products')->with('sucess','product Deleted.');
     }
 }

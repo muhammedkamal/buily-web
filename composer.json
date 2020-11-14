@@ -16,6 +16,7 @@
         "laravel/scout": "^8.4",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
+        "laravelcollective/html": "^6.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
