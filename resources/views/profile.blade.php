@@ -21,7 +21,7 @@ $products = Product::where('user_id', Auth::user()->id)->get();
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" @if(request()->input('tab') == 'profile') class="active" @endif><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab" class="nav-link">Profile</a></li>
                     <li role="presentation" @if(request()->input('tab') == 'orders') class="active" @endif><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab" class="nav-link">Orders</a></li>
-                    <li role="presentation" @if(request()->input('tab') == 'address') class="active" @endif><a href="#address" aria-controls="address" role="tab" data-toggle="tab" class="nav-link">Addresses</a></li>
+                    <li role="presentation" @if(request()->input('tab') == 'products') class="active" @endif><a href="#products" aria-controls="products" role="tab" data-toggle="tab" class="nav-link">products</a></li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -47,8 +47,27 @@ $products = Product::where('user_id', Auth::user()->id)->get();
                     <div role="tabpanel" class="tab-pane @if(request()->input('tab') == 'orders')active @endif" id="orders">
 
                     </div>
-                    <div role="tabpanel" class="tab-pane @if(request()->input('tab') == 'adress')active @endif" id="orders">
-
+                    <div role="tabpanel" class="tab-pane @if(request()->input('tab') == 'products')active @endif" id="products">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Quantity</td>
+                                    <td>Price</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                            @foreach($products as $product)
+                                <tr>
+                                    <td>{{$product->name}}</td>
+                                    <td>{{$product->quantity}}</td>
+                                    <td>{{$product->price}}$</td>
+                                    <td><a href="{{url('products')}}/{{$product->id}}/edit" class="btn btn-default">Edit</a></td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

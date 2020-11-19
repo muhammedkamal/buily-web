@@ -91,7 +91,7 @@ class ProductsController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        if ($product->id==auth()->user()->id){
+        if ($product->user_id==auth()->user()->id){
             return view('Products.edit')->with('product',$product);
         }
         else{

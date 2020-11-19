@@ -15,9 +15,12 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('profile');
+    return view('home');
 });
 
+Route::get('/profile', function () {
+    return view('profile');
+});
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
