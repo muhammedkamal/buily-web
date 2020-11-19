@@ -38,7 +38,7 @@ $products = Product::where('user_id', Auth::user()->id)->get();
                             <tbody>
                                 <tr>
                                     <td>{{Auth::user()->name}}</td>
-                                    <td>{{Auth::user()->email}}</td>
+                                    <td>{{Auth::user()->cash_amount}}$</td>
                                     <td>{{$products->count()}}</td>
                                 </tr>
                             </tbody>
