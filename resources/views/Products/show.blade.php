@@ -20,4 +20,8 @@
             {!! Form::close() !!}
         @endif
     @endif
+    <a href="{{ route('products.index') }}" class="btn btn-primary">Buy</a>
+
+
+
 @endsection
