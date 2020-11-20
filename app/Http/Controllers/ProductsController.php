@@ -67,7 +67,7 @@ class ProductsController extends Controller
         $product->quantity= $request->input('quantity');
         $product->price= $request->input('price');
         $product->save();
-        return redirect('Products')->with('sucess','product added.');
+        return redirect('Products.index')->with('sucess','product added.');
     }
 
     /**
@@ -136,8 +136,8 @@ class ProductsController extends Controller
             }
             $product->cover = $fileNameToStore;
         }
-        $product->save();
-        return redirect('Products')->with('sucess','product Updated.');
+        $product->update();
+        return redirect('Products.index')->with('sucess','product Updated.');
     }
 
     /**

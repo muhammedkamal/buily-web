@@ -30,7 +30,7 @@
                 </h6>
                 @endif
                 @else
-                <a href="{{ route('products.index') }}" class="btn btn-primary">Buy</a>
+                <a href="{{ route('orders.edit',$product->id) }}" class="btn btn-primary">Buy</a>
                 @endif
             </div>
         </div>

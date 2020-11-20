@@ -3,8 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use phpDocumentor\Reflection\Types\Null_;
 
-class AddCashAmountAndVisaNumberToUser extends Migration
+class FixVisaIdBug extends Migration
 {
     /**
      * Run the migrations.
@@ -15,7 +16,6 @@ class AddCashAmountAndVisaNumberToUser extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->integer('cash_amount')->default(0);
             $table->integer('visa_id')->nullable();
         });
     }
@@ -27,10 +27,6 @@ class AddCashAmountAndVisaNumberToUser extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-            $table->dropColumn('cash_amonut');
-            $table->dropColumn('visa_id');
-        });
+        //
     }
 }

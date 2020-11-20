@@ -1,5 +1,7 @@
 <?php
 use App\Models\Product;
+use App\Models\Order;
+$orders = Order::where('user_id', Auth::user()->id)->get();
 $products = Product::where('user_id', Auth::user()->id)->get();
 ?>
 
@@ -45,7 +47,25 @@ $products = Product::where('user_id', Auth::user()->id)->get();
                         </table>
                     </div>
                     <div role="tabpanel" class="tab-pane @if(request()->input('tab') == 'orders')active @endif" id="orders">
-
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Time</td>
+                                    <td>Quantity</td>
+                                    <td>Price</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                            <tbody>
+                                @foreach($orders as $order)
+                                <tr>
+                                    <td>{{$order->created_at}}</td>
+                                    <td>{{$order->quantity}}</td>
+                                    <td>{{$order->price}}$</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                     <div role="tabpanel" class="tab-pane @if(request()->input('tab') == 'products')active @endif" id="products">
                         <table class="table">
@@ -58,14 +78,14 @@ $products = Product::where('user_id', Auth::user()->id)->get();
                                 </tr>
                             </tbody>
                             <tbody>
-                            @foreach($products as $product)
+                                @foreach($products as $product)
                                 <tr>
                                     <td>{{$product->name}}</td>
                                     <td>{{$product->quantity}}</td>
                                     <td>{{$product->price}}$</td>
                                     <td><a href="{{url('products')}}/{{$product->id}}/edit" class="btn btn-default">Edit</a></td>
                                 </tr>
-                            @endforeach
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

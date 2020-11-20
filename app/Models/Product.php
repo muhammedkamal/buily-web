@@ -40,4 +40,8 @@ class Product extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function Order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }
