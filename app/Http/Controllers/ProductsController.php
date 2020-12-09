@@ -67,7 +67,7 @@ class ProductsController extends Controller
         $product->quantity= $request->input('quantity');
         $product->price= $request->input('price');
         $product->save();
-        return redirect('Products.index')->with('sucess','product added.');
+        return redirect('products')->with('sucess','product added.');
     }
 
     /**
@@ -157,5 +157,19 @@ class ProductsController extends Controller
         }
         $product->delete();
         return redirect('products')->with('sucess','product Deleted.');
+    }
+
+    /**
+     * search the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\products  $products
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request){
+        $products = $request->q ;
+
+        $resaults =  DB::table('products')->where('name','like','%'.$products.'%')->get();
+        return view('Products.index')->with('products',$resaults);        
     }
 }

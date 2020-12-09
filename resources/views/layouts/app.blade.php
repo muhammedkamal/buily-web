@@ -78,6 +78,17 @@
         </nav>
 
         <main class="py-4 container">
+            <div class="row justify-content-center ">
+                    {!! Form::open(['action' => ['App\Http\Controllers\ProductsController@search' ],'method' => 'GET']) !!}
+
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ request()->input('q') }}">
+                        <span class="input-group-btn">
+                            <button type="submit" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i> Search </button>
+                        </span>
+                    </div>
+                    {!! Form::close() !!}
+            </div>
             @yield('content')
         </main>
     </div>
