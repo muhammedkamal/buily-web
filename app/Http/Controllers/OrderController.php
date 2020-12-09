@@ -87,20 +87,12 @@ class OrderController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this->validate($request, [
-            'payment' => 'required'
-        ]);
-
         $order = Order::find($id);
         $prdouct = Product::find($order->product_id);
         $seller = User::find($prdouct->user_id);
         $buyer =User::find($order->user_id);
-        if($request->input('payment')=='cridet'){
             if($buyer->cash_amount<$order->price){
-                return view('errors.moneyNotEnough');
-            }
-            else if ($prdouct->quantity < $order->quantity){
-                return view('errors.quantityNoyEnough');
+                return view('errors.money');
             }
             else{
                 $seller->cash_amount += $order->price;
@@ -110,13 +102,6 @@ class OrderController extends Controller
                 $buyer->update();
                 $seller->update();
             }
-        }
-        else if($request->input('payment')=='cash'){
-            return redirect('products');
-        }
-        else if($request->input('payment')=='fawry'){
-            return redirect('products');
-        }
         return redirect('products');
     }
 

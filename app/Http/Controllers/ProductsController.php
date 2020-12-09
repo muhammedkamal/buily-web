@@ -137,7 +137,7 @@ class ProductsController extends Controller
             $product->cover = $fileNameToStore;
         }
         $product->update();
-        return redirect('Products.index')->with('sucess','product Updated.');
+        return redirect('products')->with('sucess','product Updated.');
     }
 
     /**

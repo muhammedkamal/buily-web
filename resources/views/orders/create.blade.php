@@ -23,7 +23,7 @@
                                     <img style="width:100%" src="/Buily/public/storage/coverimages/{{$order->cover}}" alt="product Cover image">
                                 </div>
                             </td>
-                            <td><input type="number" name="quantity" id="quantity" class="form-control" value="1"></td>
+                            <td><input type="number" name="quantity" id="quantity" class="form-control" value="1" max="{{$order->quantity}}"></td>
                         </tr>
                     </tbody>
                 </table>

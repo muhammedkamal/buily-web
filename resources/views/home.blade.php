@@ -15,6 +15,8 @@
                     @endif
                     @if (!Auth::guest())
                     {{ __('You are logged in!') }}
+                    @else
+                    <p>You are not logged in! <a href="{{ route('login') }}">login!</a> <hr> <a href="{{ route('products.index') }}"> Go to Proucts</a></p>
                     @endif
 
                 </div>
